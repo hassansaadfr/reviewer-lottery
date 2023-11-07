@@ -9,7 +9,18 @@ jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - run: |
-        npm install
-        npm run all
+    # - uses: actions/checkout@v1
+    # - run: |
+    #     npm install
+    #     npm run all
+
+    - id: get-members
+      uses: garnertb/get-team-members@v1
+      with:
+        org: allisone-ai
+        team_slug: dev-team
+        role: maintainer
+        token: ${{ secrets.GITHUB_TOKEN }}
+  # print results
+    - run: "echo ${{ steps.get-members.outputs.members }}"
+      shell: bash
